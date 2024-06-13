@@ -20,8 +20,8 @@ model Ticket {
   description String   @db.Text
   status      Status   @default(OPEN)
   priority    Priority @default(MEDIUM)
-  create      DateTime @default(now())
-  updateAt    DateTime @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 enum Status {
