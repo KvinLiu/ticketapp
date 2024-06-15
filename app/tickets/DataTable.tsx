@@ -1,3 +1,4 @@
+import TicketStatusBadge from "@/components/TicketStatusBadge";
 import {
   Table,
   TableBody,
@@ -19,7 +20,9 @@ const DataTable = ({ tickets }: Props) => {
           <TableHeader>
             <TableRow>
               <TableHead>Title</TableHead>
-              <TableHead>Status</TableHead>
+              <TableHead>
+                <div className="flex justify-center">Status</div>
+              </TableHead>
               <TableHead>Priority</TableHead>
               <TableHead>Created At</TableHead>
             </TableRow>
@@ -29,7 +32,11 @@ const DataTable = ({ tickets }: Props) => {
               ? tickets.map((ticket) => (
                   <TableRow key={ticket.id} data-href="/">
                     <TableCell>{ticket.title}</TableCell>
-                    <TableCell>{ticket.status}</TableCell>
+                    <TableCell>
+                      <div className="flex justify-center">
+                        <TicketStatusBadge status={ticket.status} />
+                      </div>
+                    </TableCell>
                     <TableCell>{ticket.priority}</TableCell>
                     <TableCell>
                       {ticket.createdAt.toLocaleDateString("en-US", {
