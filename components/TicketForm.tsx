@@ -15,15 +15,34 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { Button } from "./ui/button";
+import { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 type TicketFormData = z.infer<typeof ticketSchema>;
 
 const TicketForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const router = useRouter();
+
   const form = useForm<TicketFormData>({
     resolver: zodResolver(ticketSchema),
   });
   async function onSubmit(values: z.infer<typeof ticketSchema>) {
-    console.log(values);
+    try {
+      setIsSubmitting(true);
+      setError("");
+      await axios.post("/api/tickets", values);
+      setIsSubmitting(false);
+      router.push("/tickets");
+      router.refresh();
+    } catch (error) {
+      console.log("error?? ", error);
+      setError("UnKnown error. Please try again later.");
+      setIsSubmitting(false);
+    }
   }
   return (
     <div className="rounded-md border w-full p-4">
@@ -50,7 +69,7 @@ const TicketForm = () => {
               <SimpleMDE placeholder="Decription" {...field} />
             )}
           />
-          <div className="flex w-full space-x-4">
+          <div className="flex w-full space-x-4 mb-4">
             <FormField
               control={form.control}
               name="status"
@@ -100,6 +119,9 @@ const TicketForm = () => {
               )}
             />
           </div>
+          <Button type="submit" disabled={isSubmitting}>
+            Submit
+          </Button>
         </form>
       </Form>
     </div>
