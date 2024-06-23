@@ -12,6 +12,7 @@ import TicketStatusBadge from "@/components/TicketStatusBadge";
 import TicketPriority from "@/components/TicketPriority";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
+import DeleteBtn from "./DeleteBtn";
 
 interface Props {
   ticket: Ticket;
@@ -52,19 +53,14 @@ const TicketDetail = ({ ticket }: Props) => {
           })}
         </CardFooter>
       </Card>
-      <div className="mx-4 flex lg:flex-col lg:mx-0 gap-2">
+      <div className="flex gap-2 mx-4 lg:flex-col lg:mx-0">
         <Link
           href={`/tickets/edit/${ticket.id}`}
           className={`${buttonVariants({ variant: "default" })}`}
         >
           Edit Ticket
         </Link>
-        <Link
-          href={`/tickets/edit/${ticket.id}`}
-          className={`${buttonVariants({ variant: "default" })}`}
-        >
-          Delete Ticket
-        </Link>
+        <DeleteBtn ticketId={ticket.id} />
       </div>
     </div>
   );
