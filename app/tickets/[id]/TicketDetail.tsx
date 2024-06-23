@@ -1,4 +1,5 @@
 import { Ticket } from "@prisma/client";
+import ReactMarkDown from "react-markdown";
 import {
   Card,
   CardContent,
@@ -36,7 +37,9 @@ const TicketDetail = ({ ticket }: Props) => {
             })}
           </CardDescription>
         </CardHeader>
-        <CardContent>{ticket.description}</CardContent>
+        <CardContent className="prose dark:prose-invert">
+          <ReactMarkDown>{ticket.description}</ReactMarkDown>
+        </CardContent>
         <CardFooter>
           Updated:{" "}
           {ticket.updatedAt.toLocaleDateString("en-US", {
