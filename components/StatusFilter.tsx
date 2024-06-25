@@ -19,30 +19,28 @@ const StatusFilter = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   return (
-    <div className="mt-4">
-      <Select
-        defaultValue={searchParams.get("status") || ""}
-        onValueChange={(status) => {
-          const params = new URLSearchParams();
-          if (status) params.append("status", status);
-          const query = params.size ? `?${params.toString()}` : "0";
-          router.push(`/tickets${query}`);
-        }}
-      >
-        <SelectTrigger>
-          <SelectValue placeholder="Filter by Status..." />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            {statuses.map((status) => (
-              <SelectItem key={status.value || "0"} value={status.value || "0"}>
-                {status.label}
-              </SelectItem>
-            ))}
-          </SelectGroup>
-        </SelectContent>
-      </Select>
-    </div>
+    <Select
+      defaultValue={searchParams.get("status") || ""}
+      onValueChange={(status) => {
+        const params = new URLSearchParams();
+        if (status) params.append("status", status);
+        const query = params.size ? `?${params.toString()}` : "0";
+        router.push(`/tickets${query}`);
+      }}
+    >
+      <SelectTrigger className="w-[200px]">
+        <SelectValue placeholder="Filter by Status..." />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup>
+          {statuses.map((status) => (
+            <SelectItem key={status.value || "0"} value={status.value || "0"}>
+              {status.label}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
   );
 };
 
